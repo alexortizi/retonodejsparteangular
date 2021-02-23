@@ -1,0 +1,24 @@
+<div class="col-md-4 mx-auto" *ngFor="let persona of personas">
+    
+        <div class="card text-center">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            {{persona.nombres}} {{persona.apellidos}}
+            <button class="btn btn-danger" (click)="deletePersona(persona.id)">
+            <i class="far fa-trash-alt"></i>
+            </button>
+    
+        
+        </div>
+        
+        <div class="card-body">
+            <p>Edad: {{persona.edad}}</p>
+            <p>fecha de Ingreso: {{persona.fechaIngreso}}</p>
+            <p>activo: {{persona.activo}}</p>
+            <a  class="btn btn-info btn-block" [routerLink]="['/personas/edit',persona.id]">
+                Edit Persona
+            </a>
+        </div>
+        </div>
+
+</div>
+asdsa

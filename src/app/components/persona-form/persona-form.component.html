@@ -1,0 +1,153 @@
+<div class="col-md-4 offset-md-2 mx-auto">
+    <div class="card">
+        <div class="card-body">
+            <form
+            *ngIf="!isSuccessful"
+            name="form"
+            (ngSubmit)="f.form.valid && edit ? updatePersona(): saveNewPersona()"
+            #f="ngForm"
+            novalidate
+          >
+            <div class="form-group">
+              <label for="nombres">Nombres</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nombres"
+                [(ngModel)]="persona.nombres"
+                required
+                minlength="3"
+                maxlength="240"
+                #nombres="ngModel"
+                placeholder="Nombres"
+                
+              />
+              <div class="alert-danger" *ngIf="f.submitted && nombres.invalid">
+                <div *ngIf="nombres.errors.required">Nombres is required</div>
+                <div *ngIf="nombres.errors.minlength">
+                  Nombres must be at least 3 characters
+                </div>
+                <div *ngIf="nombres.errors.maxlength">
+                  Nombres must be at most 240 characters
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="apellidos">Apellidos</label>
+              <input
+                type="text"
+                class="form-control"
+                name="apellidos"
+                [(ngModel)]="persona.apellidos"
+                required
+                minlength="4"
+                #apellidos="ngModel"
+                placeholder="Apellidos"
+              />
+              <div class="alert-danger" *ngIf="f.submitted && apellidos.invalid">
+                <div *ngIf="apellidos.errors.required">Apellidos is required</div>
+                <div *ngIf="apellidos.errors.minlength">
+                    Apellidos must be at least 4 characters
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="edad">Edad</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="edad"
+                  [(ngModel)]="persona.edad"
+                  required
+                  min="18"
+                  max="100"
+                  #edad="ngModel"
+                  placeholder="Edad"
+                  novalidate
+                />
+                <div class="alert-danger" *ngIf="f.submitted && edad.invalid">
+                  <div *ngIf="edad.errors.required">Edad is required</div>
+                  <div *ngIf="edad.errors.min">
+                      La persona debe tener al menos 18 años de edad
+                  </div>
+                  <div *ngIf="edad.errors.max">
+                    La persona debe tener menos de 100 años
+                </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaIngreso">Fecha de Ingreso</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="fechaIngreso"
+                  [(ngModel)]="persona.fechaIngreso"
+                  required
+                  #fechaIngreso="ngModel"
+                  placeholder="Fecha de Ingreso"
+                />
+                <div class="alert-danger" *ngIf="f.submitted && fechaIngreso.invalid">
+                  <div *ngIf="fechaIngreso.errors.required">Fecha de Ingreso is required</div>
+                  
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="activo">Activo</label>
+                <select 
+                class="form-control form-select"
+                name="activo"
+                [(ngModel)]="persona.activo"
+                required
+                #activo="ngModel"
+                placeholder="Activo"
+                >
+                    <ng-container *ngIf="persona.activo;else activoFalse">
+                        <option value="true" selected>Sí</option>
+                        <option value="false">No</option>
+                    </ng-container >
+                    <ng-template #activoFalse>
+                        <option value="true" >Sí</option>
+                        <option value="false" selected>No</option>
+                    </ng-template>
+                </select>
+                    
+                    
+                    
+              
+                <div class="alert-danger" *ngIf="f.submitted && activo.invalid">
+                  <div *ngIf="activo.errors.required">Activo is required</div>
+                  
+                </div>
+              </div>
+
+            <div class="form-group">
+              <button class="btn btn-success btn-block">Save</button>
+            </div>
+      
+            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+              Signup failed!<br />{{ errorMessage }}
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4  offset-md-2 mx-auto">
+        <div class="alert alert-warning card" *ngIf="isPersonaFailed">
+            Create persona failed!<br />{{ errorMessage }}
+        </div>
+    </div>
+</div>
+<div class="col-md-4 offset-md-2 mx-auto">
+    <div class="card card-body text-center">
+      <p>{{persona.id ==0 ? '' : persona.id}}</p>
+      <p>{{persona.nombres =='' ? 'Digíta los nombres' : persona.nombres}}</p>
+      <p>{{persona.apellidos =='' ? 'Digíta los apelidos' : persona.apellidos}}</p>
+      <p>{{persona.edad}}</p>
+      <p>{{persona.fechaIngreso}}</p>
+      <p>{{persona.activo}}</p>
+      
+    </div>
+</div>
